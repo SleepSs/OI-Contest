@@ -6,11 +6,11 @@ using namespace std;
 
 typedef pair<int, int> pii;
 
-const int N = 1.5 * 1e5 + 10;
+const int N = 1e4 + 10;
 
 int m, n;
 // w idx -> dis
-int h[N], e[N], ne[N], w[N], d[N], idx;
+int h[N], e[N], ne[N], w[N], d[N], idx, cnt[N];
 bool st[N];
 
 
@@ -27,13 +27,19 @@ int spfa()
     d[1] = 0;
     queue<int> heap;
     
-    // 按pair第一个元素排序，所以距离在前，点名在后
-    heap.push(1);
+    for (int i = 1 ; i <= n; i ++)
+    {
+        heap.push(i);
+        st[i] = true;
+    }
     
     while(!heap.empty())
     {
         auto p = heap.front();
         heap.pop();
+        // 这个和dij是不一样的
+        // 这个控制的是在不在heap中
+        // 而不是搜没搜
         st[p] = false;
         
 
@@ -48,18 +54,19 @@ int spfa()
             if (d[son_id] > d[p] + w[i])
             {
                 d[son_id] = d[p] + w[i];
+                cnt[son_id] = cnt[p] + 1;
+                if (cnt[son_id] >= n) return true;
                 if (!st[son_id])
                 {
-                heap.push(son_id);
-                st[son_id] = true;
-                    
+                    heap.push(son_id);
+                    // dij中不会重置state
+                    st[son_id] = true;
                 }
             }
         }
     }
     
-    if (d[n] > 0x3f3f3f3f / 2) return -0x3f3f3f3f;
-    return d[n];
+    return false;
     
 }
 
@@ -79,8 +86,7 @@ int main()
         add(a, b, c);
     }
     
-    int ans = spfa();
-    if (ans == -0x3f3f3f3f) cout << "impossible";
-    else cout << ans;
+    if(spfa()) cout << "Yes";
+    else cout << "No";
     
 }

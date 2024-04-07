@@ -1,8 +1,10 @@
 #include <iostream>
 #include <algorithm>
 #include <vector>
+#include <cstring>
 
 #define LL long long
+#define INF 0x3f3f3f3f
 
 using namespace std;
 
@@ -21,5 +23,5 @@ int main()
     cin >> n;
     for (int i = 0; i < n; i++) cin >> a[i];
 
-
+    return 0;
 }

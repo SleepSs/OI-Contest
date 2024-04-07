@@ -13,7 +13,7 @@ typedef pair<int, int> pii;
 int n, m;
 /*
     变量的意义：
-    h[i] node i -> idx (default -1)
+    h[i] node i -> idx (default -1) head, i 的第一个儿子
     e[idx] idx -> node i
     ne[idx] idx -> next idx 
     ans 最终答案 全局变量
